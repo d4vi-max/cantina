@@ -26,16 +26,18 @@ public class Produto {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
     private boolean ativo;
-    private boolean estoqueDia;
+    private int estoqueDia;
 
-    public Produto (String nome, String descricao, BigDecimal preco, Categoria categoria, boolean ativo, boolean estoqueDia){
+    public Produto (String nome, String descricao, BigDecimal preco, Categoria categoria, boolean ativo, int estoqueDia){
         this.nome = validarNome(nome);
         this.descricao = descricao;
         this.preco = validarPreco(preco);
         this.categoria = categoria;
-        this.ativo = ativo;
-        this.estoqueDia = estoqueDia;
+        this.ativo = true;
+        this.estoqueDia = validarEstoque (estoqueDia);
     }
+
+    public Produto (){}
 
     //SET
 
@@ -55,8 +57,8 @@ public class Produto {
         this.ativo = ativo;
     }
 
-    public void setEstoqueDia (boolean estoqueDia){
-        this.estoqueDia = estoqueDia;
+    public void setEstoqueDia (int estoqueDia){
+        this.estoqueDia = validarEstoque (estoqueDia);
     }
 
     //GET
@@ -81,11 +83,11 @@ public class Produto {
         return categoria;
     }
 
-    public boolean getAtivo (){
+    public boolean isAtivo (){
         return ativo;
     }
 
-    public boolean getEstoqueDia (){
+    public int getEstoqueDia (){
         return estoqueDia;
     }
 
@@ -93,7 +95,7 @@ public class Produto {
 
     private BigDecimal validarPreco (BigDecimal preco){
 
-        if(preco.compareTo(BigDecimal.ZERO) <= 0){
+        if(preco == null || preco.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalArgumentException("Erro: O preço não pode ser zero ou negativo!");
         }
             return preco;
@@ -104,6 +106,13 @@ public class Produto {
             throw new IllegalArgumentException("ERRO: Adicionar nome do produto");
         }
         return nome;
+    }
+
+    private int validarEstoque (int estoqueDia){
+        if(estoqueDia < 0){
+            throw new IllegalArgumentException("Erro: O estoque não pode ser negativo!");
+        }
+        return estoqueDia;
     }
 
 }
