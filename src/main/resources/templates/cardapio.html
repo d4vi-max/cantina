@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cantina</title>
+</head>
+<body>
+
+
+    <table>
+        <tr th:each="produtos : ${produtos}">
+            <td th:text="${produtos.nome}"></td>
+        </tr>
+    </table>
+
+
+</body>
+</html>
