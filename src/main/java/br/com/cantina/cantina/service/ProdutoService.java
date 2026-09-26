@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ProdutoService  {
 
-    final ProdutoRepository produtoRepository;
+    private final ProdutoRepository produtoRepository;
     private boolean disponivel;
 
     public ProdutoService (ProdutoRepository produtoRepository){
