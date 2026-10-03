@@ -22,6 +22,7 @@ public class Produto {
     @Column(nullable = false, length = 100)
     private String nome;
     private String descricao;
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
