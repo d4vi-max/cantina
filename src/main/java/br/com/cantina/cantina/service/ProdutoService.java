@@ -12,7 +12,6 @@ import java.util.List;
 public class ProdutoService  {
 
     private final ProdutoRepository produtoRepository;
-    private boolean disponivel;
 
     public ProdutoService (ProdutoRepository produtoRepository){
         this.produtoRepository = produtoRepository;
@@ -31,6 +30,10 @@ public class ProdutoService  {
 
         return produtosValidos;
 
+    }
+
+    public Produto buscarPorId(Long id){
+        return produtoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ERRO: produto não encontrado. Id: " + id));
     }
 
 
