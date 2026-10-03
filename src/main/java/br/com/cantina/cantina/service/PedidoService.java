@@ -3,6 +3,7 @@ package br.com.cantina.cantina.service;
 
 import br.com.cantina.cantina.dto.ItemCarrinhoDTO;
 import br.com.cantina.cantina.model.*;
+import br.com.cantina.cantina.model.enums.Status;
 import br.com.cantina.cantina.repository.PedidoRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -74,5 +76,30 @@ public class PedidoService {
         } while (pedidoRepository.findByDataRetiradaAndCodigoRetirada(data, codigo).isPresent());
         return codigo;
     }
+
+    public List<Pedido> listarPorData(LocalDate data){
+        return pedidoRepository.findByDataRetirada(data);
+    }
+
+    public Pedido mudarStatus(Long pedidoId, Status novo){
+        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(() -> new IllegalArgumentException("ERRO: pedido não encontrado"));
+        pedido.mudarStatus(novo);
+        return pedidoRepository.save(pedido);
+    }
+
+    @Transactional
+    public Pedido cancelar(Long pedidoId){
+        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(() -> new IllegalArgumentException("ERRO: pedido não encontrado"));
+        pedido.mudarStatus(Status.CANCELADO);
+
+        for(ItemPedido item : pedido.getItens()) {
+            Produto produto = item.getProduto();
+            produto.setEstoqueDia(produto.getEstoqueDia() + (item.getQuantidade()));
+        }
+
+        return pedidoRepository.save(pedido);
+    }
+
+
 
 }
