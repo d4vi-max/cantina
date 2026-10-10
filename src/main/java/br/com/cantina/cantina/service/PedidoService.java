@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -21,14 +20,12 @@ public class PedidoService {
     private final PedidoRepository pedidoRepository;
     private final UsuarioService usuarioService;
     private final ProdutoService produtoService;
-    private final JanelaRetiradaService janelaRetiradaService;
     private final Random random = new Random();
 
-    public PedidoService(PedidoRepository pedidoRepository, UsuarioService usuarioService, ProdutoService produtoService, JanelaRetiradaService janelaRetiradaService){
+    public PedidoService(PedidoRepository pedidoRepository, UsuarioService usuarioService, ProdutoService produtoService){
         this.pedidoRepository = pedidoRepository;
         this.produtoService = produtoService;
         this.usuarioService = usuarioService;
-        this.janelaRetiradaService = janelaRetiradaService;
     }
 
 
@@ -82,14 +79,14 @@ public class PedidoService {
     }
 
     public Pedido mudarStatus(Long pedidoId, Status novo){
-        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(() -> new IllegalArgumentException("ERRO: pedido não encontrado"));
+        Pedido pedido = buscarPorId(pedidoId);
         pedido.mudarStatus(novo);
         return pedidoRepository.save(pedido);
     }
 
     @Transactional
     public Pedido cancelar(Long pedidoId){
-        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(() -> new IllegalArgumentException("ERRO: pedido não encontrado"));
+        Pedido pedido = buscarPorId(pedidoId);
         pedido.mudarStatus(Status.CANCELADO);
 
         for(ItemPedido item : pedido.getItens()) {
@@ -98,6 +95,10 @@ public class PedidoService {
         }
 
         return pedidoRepository.save(pedido);
+    }
+
+    public Pedido buscarPorId(Long id){
+        return pedidoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ERRO: pedido não encontrado. Id: " + id));
     }
 
 

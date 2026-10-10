@@ -32,5 +32,9 @@ public class JanelaRetiradaService {
 
     }
 
+    public JanelaRetirada buscarPorId(Long id){
+        return janelaRetiradaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ERRO: janela não encontrada . Id: " + id));
+    }
+
 }
 
