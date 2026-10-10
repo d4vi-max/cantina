@@ -6,12 +6,30 @@
 </head>
 <body>
 
+    <form th:action="@{/pedido}" method="post">
+        <select name="janelaId">
+            <option th:each="j : ${janelas}"
+                    th:value="${j.id}"
+                    th:text="${j.nome}"></option>
+        </select>
 
-    <table>
-        <tr th:each="produtos : ${produtos}">
-            <td th:text="${produtos.nome}"></td>
-        </tr>
-    </table>
+        <table>
+            <tr th:each="p, stat : ${produtos}">
+                <td th:text="${p.nome}"></td>
+                <td th:text="${p.preco}"></td>
+                <td>
+                    <input type="hidden"
+                           th:name="'itens[' + ${stat.index} + '].produtoId'"
+                           th:value="${p.id}">
+
+                    <input type="number"
+                           th:name="'itens[' + ${stat.index} + '].quantidade'"
+                           value="0" min="0">
+                </td>
+            </tr>
+        </table>
+        <button type="submit">Confirmar pedido</button>
+    </form>
 
 
 </body>

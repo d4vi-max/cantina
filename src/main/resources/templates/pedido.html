@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido</title>
+</head>
+<body>
+
+    <h1 th:text="${pedido.codigoRetirada}"></h1>
+
+    <p>Retirar em: <span th:text="${pedido.janelaRetirada.nome}"></span></p>
+
+    <table>
+        <tr th:each="item : ${pedido.itens}">
+            <td th:text="${item.produto.nome}"></td>
+            <td th:text="${item.quantidade}"></td>
+            <td th:text="${item.precoUnitario}"></td>
+        </tr>
+    </table>
+
+    <p>Total: <span th:text="${pedido.total}"></span></p>
+
+</body>
+</html>
