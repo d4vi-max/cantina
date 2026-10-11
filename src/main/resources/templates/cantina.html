@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cantina</title>
+</head>
+<body>
+
+    <h2>Pedidos Pendentes</h2>
+
+    <table>
+        <tr th:each="p : ${pendentes}">
+            <td th:text="${p.codigoRetirada}"></td>
+            <td>
+                <span th:each="item : ${p.itens}"
+                      th:text="${item.quantidade} + 'x ' + ${item.produto.nome} + ' '"></span>
+            </td>
+
+            <td th:text="${p.usuario.nome}"></td>
+            <td th:text="${p.usuario.turma}"></td>
+            <td th:text="${p.status}"></td>
+
+            <td>
+                <form th:action="@{'/cantina/' + ${p.id} + '/status'}" method="post" style="display: inline">
+                    <input type="hidden" name="novo" value="CONFIRMADO">
+                    <button type="submit">Confirmar</button>
+                </form>
+
+                <form th:action="@{'/cantina/' + ${p.id} + '/status'}" method="post" style="display: inline">
+                    <input type="hidden" name="novo" value="PRONTO">
+                    <button type="submit">Pronto</button>
+                </form>
+
+                <form th:action="@{'/cantina/' + ${p.id} + '/status'}" method="post" style="display: inline">
+                    <input type="hidden" name="novo" value="RETIRADO">
+                    <button type="submit">Retirado</button>
+                </form>
+
+                <form th:action="@{'/cantina/' + ${p.id} + '/cancelar'}" method="post" style="display: inline">
+                    <button type="submit">Cancelar</button>
+                </form>
+            </td>
+        </tr>
+
+    </table>
+
+    <h2>Pedidos Finalizados</h2>
+
+    <table>
+        <tr th:each="p : ${finalizados}">
+            <td th:text="${p.codigoRetirada}"></td>
+            <td>
+                <span th:each="item : ${p.itens}"
+                      th:text="${item.quantidade} + 'x ' + ${item.produto.nome} + ' '"></span>
+            </td>
+
+            <td th:text="${p.usuario.nome}"></td>
+            <td th:text="${p.usuario.turma}"></td>
+            <td th:text="${p.status}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>
