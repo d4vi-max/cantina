@@ -55,7 +55,7 @@ public class CardapioController {
             }
         }
 
-        Usuario usuario = usuarioService.buscarPorLogin("teste").orElseThrow(() -> new IllegalArgumentException("usuário de teste não encontrado!"));
+        Usuario usuario = usuarioService.buscarPorLogin(form.getLogin()).orElseThrow(() -> new IllegalArgumentException("usuário de teste não encontrado!"));
 
         JanelaRetirada janela = janelaRetiradaService.buscarPorId(form.getJanelaId());
 
