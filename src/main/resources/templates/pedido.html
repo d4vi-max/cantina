@@ -1,24 +1,95 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Pedido</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ticket de retirada · Cantina Américo Alves</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<main class="screen">
 
-    <h1 th:text="${pedido.codigoRetirada}"></h1>
+    <header class="header">
+        <div class="header-bar">
+            <div class="header-row">
+                <div class="logo">
+                    <div class="logo-top">
+                        <div class="scoops"><span></span><span></span><span></span></div>
+                        <div class="logo-name">Cantina</div>
+                    </div>
+                    <div class="logo-sub">Américo Alves</div>
+                </div>
+            </div>
+        </div>
+        <div class="drips" aria-hidden="true">
+            <i style="width:44px;height:22px;border-radius:0 0 22px 22px"></i>
+            <i style="width:30px;height:40px;border-radius:0 0 15px 15px"></i>
+            <i style="width:52px;height:16px;border-radius:0 0 26px 26px"></i>
+            <i style="width:26px;height:54px;border-radius:0 0 13px 13px"></i>
+            <i style="width:44px;height:26px;border-radius:0 0 22px 22px"></i>
+            <i style="width:38px;height:18px;border-radius:0 0 19px 19px"></i>
+            <i style="width:58px;height:34px;border-radius:0 0 29px 29px"></i>
+            <i style="width:28px;height:62px;border-radius:0 0 14px 14px"></i>
+            <i style="width:46px;height:20px;border-radius:0 0 23px 23px"></i>
+            <i style="width:60px;height:38px;border-radius:0 0 30px 30px"></i>
+            <div class="drop-track"><div class="drop"></div></div>
+        </div>
+    </header>
 
-    <p>Retirar em: <span th:text="${pedido.janelaRetirada.nome}"></span></p>
+    <section class="content">
+        <div class="confirmed">✓ Pedido confirmado</div>
 
-    <table>
-        <tr th:each="item : ${pedido.itens}">
-            <td th:text="${item.produto.nome}"></td>
-            <td th:text="${item.quantidade}"></td>
-            <td th:text="${item.precoUnitario}"></td>
-        </tr>
-    </table>
+        <div class="ticket-wrap">
+            <div class="ticket">
+                <div class="t-head">
+                    <div class="t-title">Cantina Américo Alves</div>
+                    <div class="t-sub">Ticket de retirada</div>
+                </div>
 
-    <p>Total: <span th:text="${pedido.total}"></span></p>
+                <div class="code-box">
+                    <div class="code-label">Código do pedido</div>
+                    <div class="code" th:text="${pedido.codigoRetirada}"></div>
+                </div>
 
+                <dl class="info">
+                    <dt>ALUNO</dt>
+                    <dd class="strong" th:text="${pedido.usuario.nome}"></dd>
+                    <dt>RA</dt>
+                    <dd th:text="${pedido.usuario.login}"></dd>
+                    <dt>RETIRAR</dt>
+                    <dd th:text="${pedido.janelaRetirada.nome}"></dd>
+                </dl>
+
+                <div class="dash"></div>
+
+                <div class="row head"><span>ITEM</span><span>QTD</span><span>PREÇO</span></div>
+
+                <div class="row item" th:each="item : ${pedido.itens}">
+                    <span th:text="${item.produto.nome}"></span>
+                    <span th:text="${item.quantidade}"></span>
+                    <span th:text="'R$ ' + ${item.precoUnitario}"></span>
+                </div>
+
+                <div class="dash" style="margin:14px -22px"></div>
+
+                <div class="total">
+                    <span>TOTAL</span>
+                    <span th:text="'R$ ' + ${pedido.total}"></span>
+                </div>
+
+                <div class="note">
+                    <p>Guarde este código! Mostre-o no balcão para retirar seu pedido.</p>
+                </div>
+            </div>
+            <div class="notch l"></div>
+            <div class="notch r"></div>
+        </div>
+
+        <a class="btn" th:href="@{/cardapio}">← Voltar ao cardápio</a>
+    </section>
+
+</main>
 </body>
 </html>

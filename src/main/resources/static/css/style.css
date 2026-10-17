@@ -1,0 +1,133 @@
+:root{
+    --bg:#FAF7F2;
+    --red:#B91C1C;
+    --red-btn:#A61818;
+    --red-hover:#8F1414;
+    --red-text:#9B1C1C;
+    --gold:#E8B931;
+    --gold-soft:#FBF2DA;
+    --note-bg:#FAF0DC;
+    --note-border:#C9A96A;
+    --paper:#FFFDF9;
+    --ink:#2A2731;
+    --muted:#6E6976;
+    --dash:#DCD5CA;
+    --green:#4FA06B;
+    --line:#F1ECE4;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Nunito,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+
+.screen{position:relative;max-width:420px;min-height:100vh;margin:0 auto;background:var(--bg);overflow:hidden}
+
+/* Cabecalho derretido */
+.header{position:absolute;top:0;left:0;right:0;z-index:10;pointer-events:none}
+.header-bar{height:112px;background:var(--red);position:relative;pointer-events:auto}
+.header-row{position:absolute;left:14px;right:14px;bottom:8px;display:flex;align-items:center;justify-content:center}
+.logo{display:flex;flex-direction:column;align-items:center;gap:3px;color:#fff}
+.logo-top{display:flex;align-items:center;gap:7px}
+.scoops{display:flex;align-items:flex-end}
+.scoops span{border-radius:50%;display:block}
+.scoops span:nth-child(1){width:11px;height:11px;background:var(--paper)}
+.scoops span:nth-child(2){width:14px;height:14px;background:#4FA06B;margin-left:-3px}
+.scoops span:nth-child(3){width:11px;height:11px;background:var(--gold);margin-left:-3px}
+.logo-name{font:600 24px/1 Fredoka,sans-serif}
+.logo-sub{font:700 8.5px/1 Nunito,sans-serif;letter-spacing:.3em;text-transform:uppercase;padding-left:.3em}
+.drips{position:relative;display:flex;align-items:flex-start;margin-top:-1px}
+.drips i{display:block;background:var(--red);margin-left:-4px}
+.drips i:first-child{margin-left:0}
+.drop-track{position:absolute;left:279px;top:56px;width:12px;height:70px;overflow:hidden}
+.drop{width:12px;height:15px;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;background:var(--red);animation:drip 3.4s ease-in infinite}
+@keyframes drip{0%,55%{transform:translateY(0) scale(.4);opacity:0}62%{opacity:1;transform:translateY(0) scale(1)}100%{transform:translateY(120px) scale(.9);opacity:0}}
+
+/* Conteudo */
+.content{padding:184px 22px 36px;display:flex;flex-direction:column;gap:18px}
+.confirmed{display:flex;align-items:center;justify-content:center;gap:6px;font:700 13px Nunito,sans-serif;color:var(--red-text)}
+
+/* Ticket */
+.ticket-wrap{position:relative;filter:drop-shadow(0 14px 22px rgba(30,80,70,.18))}
+.ticket{
+    background:var(--paper);padding:26px 22px 24px;font-family:'Space Mono',monospace;color:var(--ink);
+    -webkit-mask:radial-gradient(circle at 7px 0,transparent 6px,#000 6.5px) top/14px 51% repeat-x,radial-gradient(circle at 7px 100%,transparent 6px,#000 6.5px) bottom/14px 51% repeat-x;
+    mask:radial-gradient(circle at 7px 0,transparent 6px,#000 6.5px) top/14px 51% repeat-x,radial-gradient(circle at 7px 100%,transparent 6px,#000 6.5px) bottom/14px 51% repeat-x;
+}
+
+.notch{position:absolute;top:316px;width:22px;height:22px;border-radius:50%;background:var(--bg)}
+.notch.l{left:-11px}.notch.r{right:-11px}
+.t-head{text-align:center;display:flex;flex-direction:column;gap:4px}
+.t-title{font:600 18px/1 Fredoka,sans-serif}
+.t-sub{font:400 11px/1 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.code-box{margin-top:18px;border-radius:16px;background:var(--gold-soft);padding:14px 10px 12px;text-align:center}
+.code-label{font:700 11px/1 'Space Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--red-text)}
+.code{font:700 76px/1 'Space Mono',monospace;letter-spacing:.04em;margin-top:6px}
+.info{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin-top:18px;font-size:12.5px;line-height:1.3}
+.info dt{color:var(--muted)}
+.info dd{margin:0;text-align:right}
+.info dd.strong{font-weight:700}
+.dash{margin:16px -22px;border-top:2px dashed var(--dash)}
+.row{display:grid;grid-template-columns:1fr 34px 76px;gap:8px}
+.row span:nth-child(2){text-align:center}
+.row span:nth-child(3){text-align:right}
+.row.head{font-size:11px;letter-spacing:.08em;color:var(--muted);padding-bottom:8px}
+.row.item{font-size:13px;line-height:1.3;padding:5px 0}
+.total{display:flex;align-items:baseline;justify-content:space-between}
+.total span:first-child{font-size:13px;letter-spacing:.14em;font-weight:700}
+.total span:last-child{font:700 26px/1 'Space Mono',monospace}
+.note{margin-top:18px;padding:12px;border-radius:14px;border:1.5px dashed var(--note-border);background:var(--note-bg)}
+.note p{margin:0;font:600 13.5px/1.45 Nunito,sans-serif;color:var(--ink)}
+
+/* Botao */
+.btn{height:54px;border-radius:18px;border:0;background:var(--red-btn);color:#fff;font:700 16px Nunito,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn:hover{background:var(--red-hover)}
+.btn:active{transform:scale(.98)}
+
+/* ---- Cardapio ---- */
+button{font-family:inherit}
+.card{background:var(--paper);border-radius:22px;box-shadow:0 1px 0 rgba(42,39,49,.06),0 10px 24px -16px rgba(42,39,49,.3)}
+
+.campos{padding:16px;display:flex;flex-direction:column;gap:6px}
+.campos label{font:700 12px Nunito,sans-serif;color:var(--muted);margin-top:8px}
+.campos label:first-child{margin-top:0}
+.campos input[type=text],.campos select{
+    height:48px;border-radius:14px;border:1.5px solid #E6DFD5;background:#fff;
+    padding:0 14px;font:600 15px Nunito,sans-serif;color:var(--ink);width:100%
+}
+.campos input[type=text]:focus,.campos select:focus{outline:2px solid var(--red);border-color:transparent}
+
+.title-row{margin:22px 4px 10px;display:flex;align-items:baseline;justify-content:space-between}
+.title-row h1{margin:0;font:600 24px/1 Fredoka,sans-serif}
+
+.content{padding-bottom:140px}
+
+.menu{border-radius:24px;overflow:hidden}
+.item{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 16px;border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item-info{flex:1;min-width:0}
+.item-name{font:700 15px/1.25 Nunito,sans-serif}
+.item-desc{font:400 12.5px/1.3 Nunito,sans-serif;color:var(--muted);margin-top:2px}
+.item-price{font:800 14px/1 Nunito,sans-serif;margin-top:6px}
+.stepper{flex:none}
+.qty-input{
+    width:62px;height:44px;border-radius:14px;border:1.5px solid #E6DFD5;background:#fff;
+    text-align:center;font:800 16px Nunito,sans-serif;color:var(--ink)
+}
+.qty-input:focus{outline:2px solid var(--red);border-color:transparent}
+
+.bottom{
+    position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;z-index:8;
+    padding:14px 16px 30px;background:var(--paper);border-radius:26px 26px 0 0;
+    box-shadow:0 -10px 30px -12px rgba(42,39,49,.25)
+}
+.confirm{
+    width:100%;height:54px;border:0;border-radius:18px;background:var(--red-btn);color:#fff;
+    font:700 16px Nunito,sans-serif;cursor:pointer
+}
+.confirm:hover{background:var(--red-hover)}
+.confirm:active{transform:scale(.98)}
+
+.cat{display:flex;align-items:center;gap:10px;padding:12px 16px}
+.cat h2{margin:0;font:600 17px Fredoka,sans-serif;flex:1}
+.cat.salgados{background:#F7EFD9;color:#6B5420}
+.cat.bebidas{background:#E3F2E8;color:#2F6B45}
+.cat.gelados{background:#FAE6E4;color:#9B1C1C}
+.item:first-child{border-top:1px solid var(--line)}
