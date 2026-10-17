@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,22 +47,28 @@ public class CardapioController {
     }
 
     @PostMapping("/pedido")
-    public String criarPedido(@ModelAttribute PedidoFormDTO form) {
+    public String criarPedido(@ModelAttribute PedidoFormDTO form, RedirectAttributes redirect) {
 
-        List<ItemCarrinhoDTO> itensValidos = new ArrayList<>();
+        try {
+            List<ItemCarrinhoDTO> itensValidos = new ArrayList<>();
 
-        for(ItemCarrinhoDTO dto : form.getItens()){
-            if(dto.getQuantidade() > 0){
-                itensValidos.add(dto);
+            for(ItemCarrinhoDTO dto : form.getItens()){
+                if(dto.getQuantidade() > 0){
+                    itensValidos.add(dto);
+                }
             }
+
+            Usuario usuario = usuarioService.buscarPorLogin(form.getLogin()).orElseThrow(() -> new IllegalArgumentException("RA não encontrado: " + form.getLogin()));
+
+            JanelaRetirada janela = janelaRetiradaService.buscarPorId(form.getJanelaId());
+
+            Pedido pedido = pedidoService.criarPedido(usuario, janela, LocalDate.now(), itensValidos);
+            return "redirect:/pedido/" + pedido.getId();
+        } catch (RuntimeException e){
+            redirect.addFlashAttribute("erro", e.getMessage());
+            return "redirect:/cardapio";
         }
 
-        Usuario usuario = usuarioService.buscarPorLogin(form.getLogin()).orElseThrow(() -> new IllegalArgumentException("usuário de teste não encontrado!"));
-
-        JanelaRetirada janela = janelaRetiradaService.buscarPorId(form.getJanelaId());
-
-        Pedido pedido = pedidoService.criarPedido(usuario, janela, LocalDate.now(), itensValidos);
-        return "redirect:/pedido/" + pedido.getId();
 
     }
 

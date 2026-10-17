@@ -41,6 +41,8 @@
     <form th:action="@{/pedido}" method="post">
         <section class="content">
 
+            <div class="card erro" th:if="${erro}" th:text="${erro}"></div>
+
             <div class="card campos">
                 <label>Seu RA</label>
                 <input type="text" name="login" required placeholder="Ex.: 2024001234">
@@ -108,11 +110,32 @@
 
         </section>
 
+        <div class="card aviso-pedido" id="avisoPedido" style="display:none">
+            <div>
+                <small>SEU ÚLTIMO PEDIDO</small>
+                <strong id="avisoCodigo"></strong>
+                <span id="avisoJanela"></span>
+            </div>
+            <a id="avisoLink" href="#">Ver ticket →</a>
+        </div>
+
         <footer class="bottom">
             <button class="confirm" type="submit">Confirmar pedido →</button>
         </footer>
     </form>
 
 </main>
+
+<script>
+    const salvo = localStorage.getItem('ultimoPedido');
+    if (salvo) {
+        const p = JSON.parse(salvo);
+        document.getElementById('avisoCodigo').textContent = p.codigo;
+        document.getElementById('avisoJanela').textContent = p.janela;
+        document.getElementById('avisoLink').href = '/pedido/' + p.id;
+        document.getElementById('avisoPedido').style.display = 'flex';
+    }
+</script>
+
 </body>
 </html>
