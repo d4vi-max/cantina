@@ -156,3 +156,54 @@ button{font-family:inherit}
 .espaco-senha{
     padding: 10px;
 }
+
+/* ---- Painel da cantina ---- */
+.screen.wide{max-width:900px}
+
+.link-topo{font:700 14px Nunito,sans-serif;color:var(--red-text);text-decoration:none}
+
+.vazio{padding:28px;text-align:center;font:600 15px Nunito,sans-serif;color:var(--muted)}
+
+.pedido{padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.pedido-topo{display:flex;align-items:center;gap:18px}
+.pedido-codigo{
+    font:700 40px/1 'Space Mono',monospace;letter-spacing:.04em;
+    background:var(--gold-soft);border-radius:14px;padding:8px 16px;flex:none
+}
+.pedido-aluno{flex:1;display:flex;flex-direction:column;gap:2px}
+.pedido-aluno strong{font:800 18px Nunito,sans-serif}
+.pedido-aluno span{font:600 13px Nunito,sans-serif;color:var(--muted)}
+.pedido-status{
+    font:800 12px Nunito,sans-serif;letter-spacing:.08em;
+    background:#EFEAE2;border-radius:999px;padding:8px 14px;flex:none
+}
+.pedido-itens{display:flex;flex-wrap:wrap;gap:8px}
+.pedido-itens span{
+    font:600 14px Nunito,sans-serif;background:#F6F2EB;border-radius:10px;padding:6px 12px
+}
+.pedido-acoes{display:flex;flex-wrap:wrap;gap:10px}
+.acao{
+    min-height:52px;padding:0 22px;border:0;border-radius:16px;
+    background:var(--red-btn);color:#fff;font:700 15px Nunito,sans-serif;cursor:pointer
+}
+.acao:hover{background:var(--red-hover)}
+.acao:active{transform:scale(.97)}
+.acao.ok{background:#2F7D4F}
+.acao.ok:hover{background:#255F3D}
+.acao.danger{background:#fff;color:var(--red-text);border:1.5px solid #E6DFD5}
+.acao.danger:hover{background:#FBEFEF}
+
+h1.menor{font-size:18px;color:var(--muted)}
+.finalizados{padding:8px 16px}
+.fin-linha{
+    display:flex;align-items:center;gap:14px;padding:10px 0;
+    border-top:1px solid var(--line);font:600 14px Nunito,sans-serif;color:var(--muted)
+}
+.fin-linha:first-child{border-top:0}
+.fin-cod{font:700 16px 'Space Mono',monospace;color:var(--ink);min-width:60px}
+.fin-status{margin-left:auto;font-size:12px}
+
+.pedido-total{
+    font:800 20px Nunito,sans-serif;flex:none;
+    background:#F6F2EB;border-radius:12px;padding:10px 16px
+}

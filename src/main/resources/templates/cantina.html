@@ -1,64 +1,103 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cantina</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pedidos · Cantina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<main class="screen wide">
 
-    <h2>Pedidos Pendentes</h2>
+    <header class="header">
+        <div class="header-bar">
+            <div class="header-row">
+                <div class="logo">
+                    <div class="logo-top">
+                        <div class="scoops"><span></span><span></span><span></span></div>
+                        <div class="logo-name">Cantina</div>
+                    </div>
+                    <div class="logo-sub">Américo Alves</div>
+                </div>
+            </div>
+        </div>
+        <div class="drips" aria-hidden="true">
+            <i style="width:44px;height:22px;border-radius:0 0 22px 22px"></i>
+            <i style="width:30px;height:40px;border-radius:0 0 15px 15px"></i>
+            <i style="width:52px;height:16px;border-radius:0 0 26px 26px"></i>
+            <i style="width:26px;height:54px;border-radius:0 0 13px 13px"></i>
+            <i style="width:44px;height:26px;border-radius:0 0 22px 22px"></i>
+            <i style="width:38px;height:18px;border-radius:0 0 19px 19px"></i>
+            <i style="width:58px;height:34px;border-radius:0 0 29px 29px"></i>
+            <i style="width:28px;height:62px;border-radius:0 0 14px 14px"></i>
+            <i style="width:46px;height:20px;border-radius:0 0 23px 23px"></i>
+            <i style="width:60px;height:38px;border-radius:0 0 30px 30px"></i>
+            <div class="drop-track"><div class="drop"></div></div>
+        </div>
+    </header>
 
-    <table>
-        <tr th:each="p : ${pendentes}">
-            <td th:text="${p.codigoRetirada}"></td>
-            <td>
+    <section class="content">
+
+        <div class="title-row">
+            <h1>Pedidos de hoje</h1>
+            <a class="link-topo" th:href="@{/cantina/estoque}">Estoque →</a>
+        </div>
+
+        <div class="card vazio" th:if="${#lists.isEmpty(pendentes)}">
+            Nenhum pedido pendente no momento.
+        </div>
+
+        <div class="card pedido" th:each="p : ${pendentes}">
+            <div class="pedido-topo">
+                <div class="pedido-codigo" th:text="${p.codigoRetirada}"></div>
+                <div class="pedido-aluno">
+                    <strong th:text="${p.usuario.nome}"></strong>
+                    <span th:text="${p.usuario.turma}"></span>
+                </div>
+                <div class="pedido-total" th:text="'R$ ' + ${p.total}"></div>
+                <div class="pedido-status" th:text="${p.status}"></div>
+            </div>
+
+            <div class="pedido-itens">
                 <span th:each="item : ${p.itens}"
-                      th:text="${item.quantidade} + 'x ' + ${item.produto.nome} + ' '"></span>
-            </td>
+                      th:text="${item.quantidade} + 'x ' + ${item.produto.nome}"></span>
+            </div>
 
-            <td th:text="${p.usuario.nome}"></td>
-            <td th:text="${p.usuario.turma}"></td>
-            <td th:text="${p.status}"></td>
-
-            <td>
-                <form th:action="@{'/cantina/' + ${p.id} + '/status'}" method="post" style="display: inline">
+            <div class="pedido-acoes">
+                <form th:action="@{'/cantina/' + ${p.id} + '/status'}" method="post">
                     <input type="hidden" name="novo" value="CONFIRMADO">
-                    <button type="submit">Confirmar</button>
+                    <button class="acao" type="submit">Confirmar</button>
                 </form>
-
-                <form th:action="@{'/cantina/' + ${p.id} + '/status'}" method="post" style="display: inline">
+                <form th:action="@{'/cantina/' + ${p.id} + '/status'}" method="post">
                     <input type="hidden" name="novo" value="PRONTO">
-                    <button type="submit">Pronto</button>
+                    <button class="acao" type="submit">Pronto</button>
                 </form>
-
-                <form th:action="@{'/cantina/' + ${p.id} + '/status'}" method="post" style="display: inline">
+                <form th:action="@{'/cantina/' + ${p.id} + '/status'}" method="post">
                     <input type="hidden" name="novo" value="RETIRADO">
-                    <button type="submit">Retirado</button>
+                    <button class="acao ok" type="submit">Retirado</button>
                 </form>
-
-                <form th:action="@{'/cantina/' + ${p.id} + '/cancelar'}" method="post" style="display: inline">
-                    <button type="submit">Cancelar</button>
+                <form th:action="@{'/cantina/' + ${p.id} + '/cancelar'}" method="post">
+                    <button class="acao danger" type="submit">Cancelar</button>
                 </form>
-            </td>
-        </tr>
+            </div>
+        </div>
 
-    </table>
+        <div class="title-row">
+            <h1 class="menor">Finalizados</h1>
+        </div>
 
-    <h2>Pedidos Finalizados</h2>
+        <div class="card finalizados">
+            <div class="fin-linha" th:each="p : ${finalizados}">
+                <span class="fin-cod" th:text="${p.codigoRetirada}"></span>
+                <span th:text="${p.usuario.nome}"></span>
+                <span class="fin-status" th:text="${p.status}"></span>
+            </div>
+        </div>
 
-    <table>
-        <tr th:each="p : ${finalizados}">
-            <td th:text="${p.codigoRetirada}"></td>
-            <td>
-                <span th:each="item : ${p.itens}"
-                      th:text="${item.quantidade} + 'x ' + ${item.produto.nome} + ' '"></span>
-            </td>
+    </section>
 
-            <td th:text="${p.usuario.nome}"></td>
-            <td th:text="${p.usuario.turma}"></td>
-            <td th:text="${p.status}"></td>
-        </tr>
-    </table>
-
+</main>
 </body>
 </html>
