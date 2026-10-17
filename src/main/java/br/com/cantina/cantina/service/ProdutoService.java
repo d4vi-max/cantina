@@ -36,5 +36,15 @@ public class ProdutoService  {
         return produtoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ERRO: produto não encontrado. Id: " + id));
     }
 
+    public  List<Produto> listarTodos(){
+        return produtoRepository.findAll();
+    }
+
+    public Produto atualizarEstoque(Long id, int quantidade) {
+        Produto produto = buscarPorId(id);
+        produto.setEstoqueDia(quantidade);
+        return produtoRepository.save(produto);
+    }
+
 
 }

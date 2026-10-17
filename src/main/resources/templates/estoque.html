@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Estoque · Cantina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="screen wide">
+
+    <header class="header">
+        <div class="header-bar">
+            <div class="header-row">
+                <div class="logo">
+                    <div class="logo-top">
+                        <div class="scoops"><span></span><span></span><span></span></div>
+                        <div class="logo-name">Cantina</div>
+                    </div>
+                    <div class="logo-sub">Américo Alves</div>
+                </div>
+            </div>
+        </div>
+        <div class="drips" aria-hidden="true">
+            <i style="width:44px;height:22px;border-radius:0 0 22px 22px"></i>
+            <i style="width:30px;height:40px;border-radius:0 0 15px 15px"></i>
+            <i style="width:52px;height:16px;border-radius:0 0 26px 26px"></i>
+            <i style="width:26px;height:54px;border-radius:0 0 13px 13px"></i>
+            <i style="width:44px;height:26px;border-radius:0 0 22px 22px"></i>
+            <i style="width:38px;height:18px;border-radius:0 0 19px 19px"></i>
+            <i style="width:58px;height:34px;border-radius:0 0 29px 29px"></i>
+            <i style="width:28px;height:62px;border-radius:0 0 14px 14px"></i>
+            <i style="width:46px;height:20px;border-radius:0 0 23px 23px"></i>
+            <i style="width:60px;height:38px;border-radius:0 0 30px 30px"></i>
+            <div class="drop-track"><div class="drop"></div></div>
+        </div>
+    </header>
+
+    <section class="content">
+
+        <div class="title-row">
+            <h1>Estoque de hoje</h1>
+            <a th:href="@{/cantina}">← Voltar aos pedidos</a>
+        </div>
+
+        <form th:action="@{/cantina/estoque}" method="post">
+            <div class="card menu">
+                <div class="item" th:each="p : ${produtos}">
+                    <div class="item-info">
+                        <div class="item-name" th:text="${p.nome}"></div>
+                        <div class="item-desc" th:text="${p.categoria}"></div>
+                    </div>
+                    <div class="stepper">
+                        <input type="hidden" name="produtoId" th:value="${p.id}">
+                        <input type="number" class="qty-input" name="quantidade"
+                               th:value="${p.estoqueDia}" min="0">
+                    </div>
+                </div>
+            </div>
+
+            <button class="confirm" type="submit" style="margin-top:18px">Salvar estoque</button>
+        </form>
+
+    </section>
+
+</main>
+</body>
+</html>
