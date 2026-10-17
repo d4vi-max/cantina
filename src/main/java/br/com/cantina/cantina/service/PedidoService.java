@@ -42,6 +42,11 @@ public class PedidoService {
             throw new IllegalStateException("ERRO: Não é possível realizer pedidos depois da hora de corte!");
         }
 
+        long jaFeitos = pedidoRepository.countByDataRetiradaAndJanelaRetirada(data, janelaRetirada);
+        if (jaFeitos >= janelaRetirada.getCapacidade()) {
+            throw new IllegalStateException("Este intervalo já atingiu o limite de pedidos. Escolha outro horário.");
+        }
+
         String codigo = gerarCodigo(data);
         Pedido pedido = new Pedido(usuario, janelaRetirada, data, codigo);
 

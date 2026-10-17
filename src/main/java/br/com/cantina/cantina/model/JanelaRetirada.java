@@ -22,14 +22,17 @@ public class JanelaRetirada {
     private LocalTime horaCorte;
     @Column(nullable = false)
     private boolean ativa;
+    @Column(nullable = false)
+    private int capacidade;
 
-    public JanelaRetirada(String nome, LocalTime horaInicio, LocalTime horaFim, LocalTime horaCorte, boolean ativa){
+    public JanelaRetirada(String nome, LocalTime horaInicio, LocalTime horaFim, LocalTime horaCorte, boolean ativa, int capacidade){
         validarHorarios(horaInicio, horaFim, horaCorte);
         this.nome = validarNome(nome);
         this.horaInicio = horaInicio;
         this.horaFim = horaFim;
         this.horaCorte = horaCorte;
         this.ativa = ativa;
+        this.capacidade = validarCapacidade(capacidade);
     }
 
     public JanelaRetirada(){}
@@ -49,6 +52,10 @@ public class JanelaRetirada {
 
     public void setAtiva(boolean ativa){
         this.ativa = ativa;
+    }
+
+    public void setCapacidade(int capacidade) {
+        this.capacidade = validarCapacidade(capacidade);
     }
 
     // GET
@@ -77,6 +84,10 @@ public class JanelaRetirada {
         return ativa;
     }
 
+    public int getCapacidade() {
+        return capacidade;
+    }
+
     // Verificações
 
     private String validarNome (String nome) {
@@ -96,5 +107,10 @@ public class JanelaRetirada {
             }
     }
 
-
+    private int validarCapacidade (int capacidade){
+        if(capacidade <= 0){
+            throw new IllegalArgumentException("Erro: A capacidade não pode ser zero ou negativo!");
+        }
+        return capacidade;
+    }
 }

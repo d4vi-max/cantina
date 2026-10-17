@@ -1,5 +1,6 @@
 package br.com.cantina.cantina.repository;
 
+import br.com.cantina.cantina.model.JanelaRetirada;
 import br.com.cantina.cantina.model.Pedido;
 import br.com.cantina.cantina.model.enums.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +17,6 @@ public interface PedidoRepository extends JpaRepository <Pedido, Long> {
 
     Optional<Pedido> findByDataRetiradaAndCodigoRetirada (LocalDate dataRetirada, String codigoRetirada);
 
+    long countByDataRetiradaAndJanelaRetirada(LocalDate data, JanelaRetirada janela);
 
 }
