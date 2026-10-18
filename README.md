@@ -65,6 +65,11 @@ model       →  entidades de domínio
 - transições válidas do pedido — um pedido só avança pelos estados na ordem correta
 ---
 
+🔗 **[Acessar o sistema](https://cantina-9qj3.onrender.com/cardapio)**
+
+> ⚠️ Hospedado em plano gratuito — a primeira requisição pode levar até 50 segundos enquanto o servidor inicia.
+---
+
 ## Autor
  
 **Davi Nicésio Martins de Resende**
