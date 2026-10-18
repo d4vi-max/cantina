@@ -78,5 +78,8 @@ public class CardapioController {
         return "pedido";
     }
 
-
+    @GetMapping("/")
+    public String raiz() {
+        return "redirect:/cardapio";
+    }
 }
