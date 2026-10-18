@@ -51,6 +51,11 @@ public class PedidoService {
         Pedido pedido = new Pedido(usuario, janelaRetirada, data, codigo);
 
         for(ItemCarrinhoDTO dto : carrinho){
+
+            if (dto.getQuantidade() > 5) {
+                throw new IllegalStateException("Máximo de 5 unidades por item.");
+            }
+
             Produto produto = produtoService.buscarPorId(dto.getProdutoId());
             if(produto.getEstoqueDia() < dto.getQuantidade()){
                 throw new IllegalStateException("ERRO: estoque insuficiente para " + produto.getNome());

@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="icon" type="image/svg+xml" th:href="@{/favicon.svg}">
+    <link rel="manifest" th:href="@{/manifest.json}">
+    <meta name="theme-color" content="#B91C1C">
+    <link rel="apple-touch-icon" th:href="@{/icon-192.png}">
 </head>
 <body>
 <main class="screen wide">
@@ -44,6 +47,15 @@
 
             <div class="card erro" th:if="${erro}" th:text="${erro}"></div>
 
+            <div class="card aviso-pedido" id="avisoPedido" style="display:none">
+                <div>
+                    <small>SEU ÚLTIMO PEDIDO</small>
+                    <strong id="avisoCodigo"></strong>
+                    <span id="avisoJanela"></span>
+                </div>
+                <a id="avisoLink" href="#">Ver ticket →</a>
+            </div>
+
             <div class="card campos">
                 <label>Seu RA</label>
                 <input type="text" name="login" required placeholder="Ex.: 2024001234">
@@ -73,7 +85,7 @@
                     </div>
                     <div class="stepper">
                         <input type="hidden" th:name="'itens[' + ${p.id} + '].produtoId'" th:value="${p.id}">
-                        <input type="number" class="qty-input" th:name="'itens[' + ${p.id} + '].quantidade'" value="0" min="0">
+                        <input type="number" class="qty-input" th:name="'itens[' + ${p.id} + '].quantidade'" value="0" min="0" th:max="${p.estoqueDia}">
                     </div>
                 </div>
 
@@ -88,7 +100,7 @@
                     </div>
                     <div class="stepper">
                         <input type="hidden" th:name="'itens[' + ${p.id} + '].produtoId'" th:value="${p.id}">
-                        <input type="number" class="qty-input" th:name="'itens[' + ${p.id} + '].quantidade'" value="0" min="0">
+                        <input type="number" class="qty-input" th:name="'itens[' + ${p.id} + '].quantidade'" value="0" min="0" th:max="${p.estoqueDia}">
                     </div>
                 </div>
 
@@ -103,22 +115,13 @@
                     </div>
                     <div class="stepper">
                         <input type="hidden" th:name="'itens[' + ${p.id} + '].produtoId'" th:value="${p.id}">
-                        <input type="number" class="qty-input" th:name="'itens[' + ${p.id} + '].quantidade'" value="0" min="0">
+                        <input type="number" class="qty-input" th:name="'itens[' + ${p.id} + '].quantidade'" value="0" min="0" th:max="${p.estoqueDia}">
                     </div>
                 </div>
 
             </div>
 
         </section>
-
-        <div class="card aviso-pedido" id="avisoPedido" style="display:none">
-            <div>
-                <small>SEU ÚLTIMO PEDIDO</small>
-                <strong id="avisoCodigo"></strong>
-                <span id="avisoJanela"></span>
-            </div>
-            <a id="avisoLink" href="#">Ver ticket →</a>
-        </div>
 
         <footer class="bottom">
             <button class="confirm" type="submit">Confirmar pedido →</button>
