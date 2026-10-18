@@ -64,3 +64,7 @@ model       →  entidades de domínio
 - limite de capacidade — teto de pedidos por intervalo, definido pela cantina
 - transições válidas do pedido — um pedido só avança pelos estados na ordem correta
 ---
+
+## Autor
+ 
+**Davi Nicésio Martins de Resende**
