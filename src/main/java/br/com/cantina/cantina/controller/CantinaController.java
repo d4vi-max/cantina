@@ -44,24 +44,30 @@ public class CantinaController {
     }
 
     @PostMapping("/cantina/{id}/status")
-    public String mudarStatus(@PathVariable Long id, @RequestParam Status novo, HttpSession session) {
+    public String mudarStatus(@PathVariable Long id, @RequestParam Status novo, HttpSession session, RedirectAttributes redirect) {
 
         if (session.getAttribute("cantinaOk") == null) {
             return "redirect:/cantina/login";
         }
-
-        pedidoService.mudarStatus(id, novo);
+        try{
+           pedidoService.mudarStatus(id,novo);
+        }catch(RuntimeException e){
+            redirect.addFlashAttribute("erro", e.getMessage());
+        }
         return "redirect:/cantina";
     }
 
     @PostMapping("/cantina/{id}/cancelar")
-    public String cancelar(@PathVariable Long id, HttpSession session){
+    public String cancelar(@PathVariable Long id, HttpSession session, RedirectAttributes redirect){
 
         if (session.getAttribute("cantinaOk") == null) {
             return "redirect:/cantina/login";
         }
-
-        pedidoService.cancelar(id);
+        try{
+            pedidoService.cancelar(id);
+        }catch(RuntimeException e){
+            redirect.addFlashAttribute("erro", e.getMessage());
+        }
         return "redirect:/cantina";
     }
 

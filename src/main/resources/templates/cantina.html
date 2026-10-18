@@ -40,6 +40,8 @@
 
     <section class="content">
 
+        <div class="card erro" th:if="${erro}" th:text="${erro}"></div>
+
         <div class="title-row">
             <h1>Pedidos de hoje</h1>
             <a class="link-topo" th:href="@{/cantina/estoque}">Estoque →</a>
