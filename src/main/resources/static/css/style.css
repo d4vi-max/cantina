@@ -115,7 +115,6 @@ button{font-family:inherit}
 
 .menu{border-radius:24px;overflow:hidden}
 .item{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 16px;border-top:1px solid var(--line)}
-.item:first-child{border-top:0}
 .item-info{flex:1;min-width:0}
 .item-name{font:700 15px/1.25 Nunito,sans-serif}
 .item-desc{font:400 12.5px/1.3 Nunito,sans-serif;color:var(--muted);margin-top:2px}
@@ -162,8 +161,6 @@ button{font-family:inherit}
 }
 
 /* ---- Painel da cantina ---- */
-.screen.wide{max-width:900px}
-
 .link-topo{font:700 14px Nunito,sans-serif;color:var(--red-text);text-decoration:none}
 
 .vazio{padding:28px;text-align:center;font:600 15px Nunito,sans-serif;color:var(--muted)}
@@ -174,7 +171,7 @@ button{font-family:inherit}
     font:700 40px/1 'Space Mono',monospace;letter-spacing:.04em;
     background:var(--gold-soft);border-radius:14px;padding:8px 16px;flex:none
 }
-.pedido-aluno{flex:1;display:flex;flex-direction:column;gap:2px}
+.pedido-aluno{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
 .pedido-aluno strong{font:800 18px Nunito,sans-serif}
 .pedido-aluno span{font:600 13px Nunito,sans-serif;color:var(--muted)}
 .pedido-status{
@@ -214,3 +211,52 @@ h1.menor{font-size:18px;color:var(--muted)}
 
 /*--Sucesso--*/
 .sucesso{padding:14px 16px;background:#E8F5EC;border:1.5px solid #4FA06B;color:#2F6B45;font:700 13px Nunito,sans-serif}
+
+
+/* ===================================================
+   PAINEL DA CANTINA EM TELA PEQUENA  (ate 640px)
+   Celular ou notebook pequeno no balcao.
+   O .pedido-topo e uma linha com 4 blocos; sem isso
+   os blocos de largura fixa somam mais que a tela.
+   =================================================== */
+@media (max-width:640px){
+    .pedido{padding:16px}
+
+    /* deixa os blocos quebrarem pra linha de baixo */
+    .pedido-topo{flex-wrap:wrap;gap:10px}
+
+    .pedido-codigo{font-size:32px;padding:6px 12px}
+
+    /* 130px de base: se nao couber com o codigo, desce */
+    .pedido-aluno{flex:1 1 130px}
+    .pedido-aluno strong{font-size:16px}
+
+    .pedido-total{font-size:16px;padding:8px 12px}
+    .pedido-status{font-size:11px;padding:6px 10px}
+
+    /* os filhos flex aqui sao os <form>, nao os <button> */
+    .pedido-acoes form{flex:1 1 calc(50% - 5px)}
+    .pedido-acoes .acao{width:100%;padding:0 10px;font-size:14px}
+
+    .fin-linha{gap:10px;font-size:13px}
+    .title-row h1{font-size:20px}
+}
+
+/* ===================================================
+   TELAS ESTREITAS  (ate 360px)
+   iPhone SE, Moto E, Androids de entrada.
+   Em 320px sobram 276px uteis; aqui recupero largura.
+   =================================================== */
+@media (max-width:360px){
+    .content{padding-left:16px;padding-right:16px}
+
+    .ticket{padding-left:18px;padding-right:18px}
+    .dash{margin-left:-18px;margin-right:-18px}
+    .code{font-size:60px}
+
+    .item{padding-left:12px;padding-right:10px;gap:10px}
+    .qty-input{width:56px}
+
+    .aviso-pedido strong{font-size:24px}
+    .title-row h1{font-size:21px}
+}
