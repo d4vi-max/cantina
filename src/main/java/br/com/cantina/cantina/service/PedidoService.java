@@ -39,7 +39,7 @@ public class PedidoService {
             throw new IllegalStateException("ERRO: usuário não pode pedir, por favor verifique novamente!");
         }
         if(LocalTime.now().isAfter(janelaRetirada.getHoraCorte())){
-            throw new IllegalStateException("ERRO: Não é possível realizer pedidos depois da hora de corte!");
+            throw new IllegalStateException("ERRO: Não é possível realizar pedidos depois da hora de corte!");
         }
 
         long jaFeitos = pedidoRepository.countByDataRetiradaAndJanelaRetirada(data, janelaRetirada);

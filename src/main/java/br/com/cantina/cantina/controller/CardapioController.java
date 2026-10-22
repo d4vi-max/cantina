@@ -84,7 +84,7 @@ public class CardapioController {
     }
 
     @GetMapping("/pedido/{id}")
-    public String cerPedido(@PathVariable Long id, Model model, HttpSession session){
+    public String verPedido(@PathVariable Long id, Model model, HttpSession session){
 
         if (session.getAttribute("usuarioId") == null) {
             return "redirect:/login";
