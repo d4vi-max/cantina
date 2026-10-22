@@ -98,11 +98,19 @@ button{font-family:inherit}
 .campos{padding:16px;display:flex;flex-direction:column;gap:6px}
 .campos label{font:700 12px Nunito,sans-serif;color:var(--muted);margin-top:8px}
 .campos label:first-child{margin-top:0}
-.campos input[type=text],.campos select{
+
+.campos input[type=text],
+.campos input[type=password],
+.campos input[type=number],
+.campos select{
     height:48px;border-radius:14px;border:1.5px solid #E6DFD5;background:#fff;
     padding:0 14px;font:600 15px Nunito,sans-serif;color:var(--ink);width:100%
 }
-.campos input[type=text]:focus,.campos select:focus{outline:2px solid var(--red);border-color:transparent}
+
+.campos input[type=text]:focus,
+.campos input[type=password]:focus,
+.campos input[type=number]:focus,
+.campos select:focus{outline:2px solid var(--red);border-color:transparent}
 
 .title-row{margin:22px 4px 10px;display:flex;align-items:baseline;justify-content:space-between}
 .title-row h1{margin:0;font:600 24px/1 Fredoka,sans-serif}
@@ -207,3 +215,6 @@ h1.menor{font-size:18px;color:var(--muted)}
     font:800 20px Nunito,sans-serif;flex:none;
     background:#F6F2EB;border-radius:12px;padding:10px 16px
 }
+
+/*--Sucesso--*/
+.sucesso{padding:14px 16px;background:#E8F5EC;border:1.5px solid #4FA06B;color:#2F6B45;font:700 13px Nunito,sans-serif}

@@ -8,12 +8,10 @@ public class PedidoFormDTO {
 
     private Long janelaId;
     private List<ItemCarrinhoDTO> itens = new AutoPopulatingList<>(ItemCarrinhoDTO.class);
-    private String login;
 
-    public PedidoFormDTO(Long janelaId, List<ItemCarrinhoDTO> itens, String login){
+    public PedidoFormDTO(Long janelaId, List<ItemCarrinhoDTO> itens){
         this.janelaId = janelaId;
         this.itens = itens;
-        this.login = login;
     }
 
     public PedidoFormDTO(){}
@@ -26,10 +24,6 @@ public class PedidoFormDTO {
         this.itens = itens;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public List<ItemCarrinhoDTO> getItens() {
         return itens;
     }
@@ -38,7 +32,5 @@ public class PedidoFormDTO {
         return janelaId;
     }
 
-    public String getLogin() {
-        return login;
-    }
+
 }

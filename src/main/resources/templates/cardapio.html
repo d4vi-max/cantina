@@ -57,9 +57,6 @@
             </div>
 
             <div class="card campos">
-                <label>Seu RA</label>
-                <input type="text" name="login" required placeholder="Ex.: 2024001234">
-
                 <label>Retirar no intervalo</label>
                 <select name="janelaId">
                     <option th:each="j : ${janelas}"
@@ -70,6 +67,7 @@
 
             <div class="title-row">
                 <h1>Cardápio de hoje</h1>
+                <a class="link-topo" th:href="@{/logout}">Sair</a>
             </div>
 
             <div class="card menu">

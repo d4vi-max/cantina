@@ -9,6 +9,7 @@ import br.com.cantina.cantina.service.JanelaRetiradaService;
 import br.com.cantina.cantina.service.PedidoService;
 import br.com.cantina.cantina.service.ProdutoService;
 import br.com.cantina.cantina.service.UsuarioService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,12 @@ public class CardapioController {
     }
 
     @GetMapping("/cardapio")
-    public String mostrarCardapio (Model model){
+    public String mostrarCardapio (Model model, HttpSession session){
+
+        if (session.getAttribute("usuarioId") == null) {
+            return "redirect:/login";
+        }
+
         model.addAttribute("produtos", produtoService.listarDisponiveis());
         model.addAttribute("janelas", janelaRetiradaService.listarAtivas());
         model.addAttribute("form", new PedidoFormDTO());
@@ -47,7 +53,11 @@ public class CardapioController {
     }
 
     @PostMapping("/pedido")
-    public String criarPedido(@ModelAttribute PedidoFormDTO form, RedirectAttributes redirect) {
+    public String criarPedido(@ModelAttribute PedidoFormDTO form, RedirectAttributes redirect, HttpSession session) {
+
+        if (session.getAttribute("usuarioId") == null) {
+            return "redirect:/login";
+        }
 
         try {
             List<ItemCarrinhoDTO> itensValidos = new ArrayList<>();
@@ -58,7 +68,8 @@ public class CardapioController {
                 }
             }
 
-            Usuario usuario = usuarioService.buscarPorLogin(form.getLogin()).orElseThrow(() -> new IllegalArgumentException("RA não encontrado: " + form.getLogin()));
+            Long usuarioId = (Long) session.getAttribute("usuarioId");
+            Usuario usuario = usuarioService.buscarPorId(usuarioId);
 
             JanelaRetirada janela = janelaRetiradaService.buscarPorId(form.getJanelaId());
 
@@ -73,7 +84,12 @@ public class CardapioController {
     }
 
     @GetMapping("/pedido/{id}")
-    public String cerPedido(@PathVariable Long id, Model model){
+    public String cerPedido(@PathVariable Long id, Model model, HttpSession session){
+
+        if (session.getAttribute("usuarioId") == null) {
+            return "redirect:/login";
+        }
+
         model.addAttribute("pedido", pedidoService.buscarPorId(id));
         return "pedido";
     }
